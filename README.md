@@ -1,7 +1,7 @@
 # Simple-webapp
 This is the simple webapp written in flask.
 
-### Always make sure that you have opened the inbound port which is mentioned in the app.py or in Dockerfile. This work can be done via AWS console and from ec2 security group. Do not give ALL traffic permission, try opening only the required port. 
+#### Always make sure that you have opened the inbound port which is mentioned in the app.py or in Dockerfile. This work can be done via AWS console and from ec2 security group. Do not give ALL traffic permission, try opening only the required port. 
 
 # Run Flask App on AWS EC2 Instance
 ## Install python virtual environment 
@@ -35,9 +35,9 @@ pip install Flask
 ```bash
 python3 app.py
 ```
-### Run Gunicorn WSGI server to serve the Flask Application When you “run” flask, you are actually running Werkzeug’s development WSGI server, which forward requests from a web server. Since Werkzeug is only for development, we have to use Gunicorn, which is a production-ready WSGI server, to serve our application.
+#### Run Gunicorn WSGI server to serve the Flask Application When you “run” flask, you are actually running Werkzeug’s development WSGI server, which forward requests from a web server. Since Werkzeug is only for development, we have to use Gunicorn, which is a production-ready WSGI server, to serve our application.
 ## Install Gunicorn using the below command:
-```bash
+```python
 pip install gunicorn
 ```
 ## Try Running the gunicorn 
@@ -46,21 +46,21 @@ gunicorn -b 0.0.0.0:8000 app:app
 ```
 ### Gunicorn is running (Ctrl + C to exit gunicorn)!
 
-### Use systemd to manage Gunicorn Systemd is a boot manager for Linux. We are using it to restart gunicorn if the EC2 restarts or reboots for some reason. We create a .service file in the /etc/systemd/system folder, and specify what would happen to gunicorn when the system reboots. We will be adding 3 parts to systemd Unit file — Unit, Service, Install
+#### Use systemd to manage Gunicorn Systemd is a boot manager for Linux. We are using it to restart gunicorn if the EC2 restarts or reboots for some reason. We create a .service file in the /etc/systemd/system folder, and specify what would happen to gunicorn when the system reboots. We will be adding 3 parts to systemd Unit file — Unit, Service, Install
 
-### Unit — This section is for description about the project and some dependencies Service — To specify user/group we want to run this service after. Also some information about the executables and the commands. Install — tells systemd at which moment during boot process this service should start. With that said, create an unit file in the /etc/systemd/system directory
+####  Unit — This section is for description about the project and some dependencies Service — To specify user/group we want to run this service after. Also some information about the executables and the commands. Install — tells systemd at which moment during boot process this service should start. With that said, create an unit file in the /etc/systemd/system directory
 ```bash
 sudo vim /etc/systemd/system/flask-app.service
 ```
-```bash 
+```python 
 ## Then add[Unit]
-Description=Gunicorn instance for a simple hello world app
+Description=Gunicorn instance for a simple flask-app
 After=network.target
 [Service]
 User=ubuntu
 Group=www-data
-WorkingDirectory=/home/ubuntu/helloworld
-ExecStart=/home/ubuntu/helloworld/venv/bin/gunicorn -b localhost:8000 app:app
+WorkingDirectory=/home/ubuntu/flask-app
+ExecStart=/home/ubuntu/flask-app/venv/bin/gunicorn -b localhost:8000 app:app
 Restart=always
 [Install]
 WantedBy=multi-user.target this into the file.
@@ -68,8 +68,8 @@ WantedBy=multi-user.target this into the file.
 ## Enable the service
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl start helloworld
-sudo systemctl enable helloworld
+sudo systemctl start flask-app
+sudo systemctl enable flask-app
 ```
 ## Check the app is runnig with
 ```bash
