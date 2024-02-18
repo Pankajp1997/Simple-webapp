@@ -1,7 +1,7 @@
 # Simple-webapp
 This is the simple webapp written in flask.
 
-## ALways make sure that you have opened the inbound port which is mentioned in the app.py or in Dockerfile. This work can be done via AWS console and from ec2 security group. Do not give ALL traffic permission, try opening only the required port. 
+### Always make sure that you have opened the inbound port which is mentioned in the app.py or in Dockerfile. This work can be done via AWS console and from ec2 security group. Do not give ALL traffic permission, try opening only the required port. 
 
 # Run Flask App on AWS EC2 Instance
 ## Install python virtual environment 
