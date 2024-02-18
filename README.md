@@ -53,7 +53,7 @@ gunicorn -b 0.0.0.0:8000 app:app
 sudo vim /etc/systemd/system/flask-app.service
 ```
 ```python 
-## Then add[Unit]
+[Unit]
 Description=Gunicorn instance for a simple flask-app
 After=network.target
 [Service]
@@ -63,7 +63,7 @@ WorkingDirectory=/home/ubuntu/flask-app
 ExecStart=/home/ubuntu/flask-app/venv/bin/gunicorn -b localhost:8000 app:app
 Restart=always
 [Install]
-WantedBy=multi-user.target this into the file.
+WantedBy=multi-user.target
 ```
 ## Enable the service
 ```bash
